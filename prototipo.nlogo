@@ -1,15 +1,17 @@
 globals [counter]
+
+
 to setup
   clear-all
   setup-patches
 
 
-  if invertit = true
-  [invertcolors]
+  if invertcolors = true
+  [invertit]
 
 end
 
-to invertcolors
+to invertit
   ask patches[
     if pcolor = black
     [set pcolor white]
@@ -30,15 +32,15 @@ end
 to setup-patches
   ask patches with [pcolor = black]
   [
-    if random 101 < presiduonor
+    if random 101 < plixonor
     [
       set pcolor yellow
     ]
-    if random 101 < presiduotox
+    if random 101 < plixotox
     [
       set pcolor red
     ]
-    if random 101 < palimento
+    if random 101 < palim
     [
       set pcolor green
     ]
@@ -84,9 +86,9 @@ ticks
 
 BUTTON
 6
-20
+10
 79
-53
+43
 setup
 setup
 NIL
@@ -102,10 +104,10 @@ NIL
 SLIDER
 4
 129
-146
+110
 162
-presiduotox
-presiduotox
+plixotox
+plixotox
 0
 15
 15.0
@@ -116,11 +118,11 @@ HORIZONTAL
 
 SLIDER
 1
-262
-143
-295
-palimento
-palimento
+235
+107
+268
+palim
+palim
 0
 20
 6.0
@@ -130,66 +132,46 @@ palimento
 HORIZONTAL
 
 SLIDER
-1
-195
-147
-228
-presiduonor
-presiduonor
+3
+183
+108
+216
+plixonor
+plixonor
 0
 15
-10.0
+11.0
 1
 1
 %
 HORIZONTAL
 
 TEXTBOX
-22
-100
-172
-130
-Probablidade do residuo toxico
-12
-0.0
-1
-
-TEXTBOX
-23
-167
-133
-197
-Probablidade do residuo normal\n
-12
-0.0
-1
-
-TEXTBOX
-33
-232
-119
-262
-Probablidade do alimento
+81
+221
+138
+239
+alimento\n
 12
 0.0
 1
 
 SWITCH
-7
-65
-113
-98
-invertit
-invertit
+0
+52
+141
+85
+invertcolors
+invertcolors
 0
 1
 -1000
 
 SLIDER
-5
-308
-177
-341
+0
+312
+105
+345
 ndepositos
 ndepositos
 0
@@ -200,16 +182,90 @@ ndepositos
 NIL
 HORIZONTAL
 
-MONITOR
-20
-370
-83
-415
-NIL
-counter
-17
+SLIDER
+113
+129
+205
+162
+elixotox
+elixotox
+0
+100
+50.0
 1
-11
+1
+NIL
+HORIZONTAL
+
+SLIDER
+112
+183
+204
+216
+elixonor
+elixonor
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+110
+235
+202
+268
+ealim
+ealim
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+80
+110
+146
+128
+lixo toxico
+12
+0.0
+1
+
+TEXTBOX
+9
+93
+114
+111
+% de existencia\n
+12
+0.0
+1
+
+TEXTBOX
+124
+93
+274
+111
+energia
+12
+0.0
+1
+
+TEXTBOX
+74
+167
+144
+185
+lixo normal
+12
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
