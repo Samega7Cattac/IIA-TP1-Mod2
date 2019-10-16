@@ -1,59 +1,93 @@
-globals [counter]
-
-
+globals [counter colorground coloralim colortox colornor colordep colorcomi colorlimp neutral]
+breed[comiloes comilao]
+breed[limpadores limpador]
+turtles-own [energy]
 to setup
-  clear-all
-  setup-patches
 
+   clear-all
 
-  if invertcolors = true
+  ifelse invertcolors = true
   [invertit]
+  [normalcolor]
 
+
+  setup-patches
+  setup-turtles
+
+end
+
+to normalcolor
+  set coloralim green
+  set colortox  red
+  set colornor  yellow
+  set colordep  blue
+  set colorcomi yellow
+  set colorlimp blue
+  set neutral   black
 end
 
 to invertit
-  ask patches[
-    if pcolor = black
-    [set pcolor white]
-
-    if pcolor = green
-    [set pcolor pink]
-
-    if pcolor = yellow
-    [set pcolor blue]
-
-    if pcolor = red
-    [set pcolor cyan]
-
-    if pcolor = blue
-    [set pcolor  yellow]
-  ]
+  ask patches[set pcolor white]
+  set neutral   white
+  set coloralim pink
+  set colortox  cyan
+  set colornor  blue
+  set colordep  yellow
+  set colorcomi blue
+  set colorlimp yellow
 end
+
 to setup-patches
-  ask patches with [pcolor = black]
+  ask patches with [pcolor = neutral]
   [
     if random 101 < plixonor
     [
-      set pcolor yellow
+      set pcolor colornor
     ]
     if random 101 < plixotox
     [
-      set pcolor red
+      set pcolor colortox
     ]
     if random 101 < palim
     [
-      set pcolor green
+      set pcolor coloralim
     ]
 
   ]
 
   while [counter < ndepositos] [
-    ask n-of 1 patches  with [pcolor = black]
+    ask n-of 1 patches  with [pcolor = neutral]
     [
-      set pcolor blue
+      set pcolor colordep
     ]
     set counter (1 + counter)
   ]
+
+end
+
+to setup-turtles
+
+  create-comiloes ncomiloes
+  [
+    set shape "bug"
+    set color colorcomi
+    setxy random-xcor random-ycor
+    set energy nenergy
+  ]
+
+  create-limpadores nlimpadores
+  [
+    set shape "bug"
+    set color colorlimp
+    setxy random-xcor random-ycor
+    set energy nenergy
+  ]
+
+end
+
+to go
+
+
 
 end
 @#$#@#$#@
@@ -159,7 +193,7 @@ alimento\n
 SWITCH
 0
 52
-141
+124
 85
 invertcolors
 invertcolors
@@ -168,10 +202,10 @@ invertcolors
 -1000
 
 SLIDER
-0
-312
-105
-345
+52
+284
+157
+317
 ndepositos
 ndepositos
 0
@@ -266,6 +300,51 @@ lixo normal
 12
 0.0
 1
+
+SLIDER
+6
+349
+178
+382
+ncomiloes
+ncomiloes
+0
+100
+41.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+9
+388
+181
+421
+nlimpadores
+nlimpadores
+0
+100
+37.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+9
+428
+181
+461
+nenergy
+nenergy
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
