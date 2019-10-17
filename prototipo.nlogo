@@ -2,23 +2,33 @@ globals [counter colorground coloralim colortox colornor colordep colorcomi colo
 breed[comiloes comilao]
 breed[limpadores limpador]
 turtles-own [energy]
-to setup
+limpadores-own[trans]
 
-   clear-all
+to setup
+  clear-all
+  reset-ticks
 
   ifelse invertcolors = true
   [invertit]
   [normalcolor]
 
-
   setup-patches
   setup-turtles
+
+  ask turtles
+  [
+    let choice random 101
+    (ifelse choice <= 25 [facexy xcor min-pycor] ;up
+    choice > 25 and choice <= 50 [facexy xcor max-pycor];down
+    choice > 50 and choice <= 75 [facexy min-pxcor ycor];left
+    choice > 75 [facexy max-pxcor ycor])
+  ]
 
 end
 
 to normalcolor
   set coloralim green
-  set colortox  red
+  set colortox  pink ;red
   set colornor  yellow
   set colordep  blue
   set colorcomi yellow
@@ -48,7 +58,7 @@ to setup-patches
     [
       set pcolor colortox
     ]
-    if random 101 < palim
+    if random 100 <= palim
     [
       set pcolor coloralim
     ]
@@ -82,23 +92,125 @@ to setup-turtles
     setxy random-xcor random-ycor
     set energy nenergy
   ]
-
 end
 
 to go
+  ask limpadores [go-limpadores]
+  ask comiloes [go-comiloes]
+  tick
+end
 
+to go-limpadores
+  (ifelse energy <= 0 [die]
+  limresi > trans
+  [
+    (ifelse [pcolor] of patch-ahead 1 = colortox
+    [
+      fd 1
+      set trans trans + 2
+      set pcolor neutral
+    ]
+    [pcolor] of patch-ahead 1 = colornor
+    [
+      fd 1
+      set trans trans + 1
+      set pcolor neutral
+    ]
+    [pcolor] of patch-ahead 1 = coloralim
+    [
+      fd 1
+      ifelse limresi / 2 > trans
+      [set energy energy + ealim]
+      [set energy energy + (ealim / 2)]
+      set pcolor neutral
+    ]
+    [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim
+    [
+      rt 90
+    ]
+    [
+      ifelse random 101 > 15 [fd 1][rt 90]
+    ])
+  ]
+  [
+    (ifelse [pcolor] of patch-ahead 1 = colordep
+    [
+      fd 1
+      set energy 10 * trans
+      set trans 0
+    ]
+    [pcolor] of patch-right-and-ahead 90 1 = colordep
+    [
+      rt 90
+    ]
+    [
+      ifelse random 101 > 15 [fd 1][rt 90]
+    ])
+  ])
+  set energy energy - 1
+end
 
-
+to go-comiloes
+  (ifelse energy <= 0 [die]
+  [pcolor] of patch-right-and-ahead 90 1 = colortox
+  [
+    lt 90
+    set energy energy - (energy * 0.1)
+  ]
+  [pcolor] of patch-left-and-ahead 90 1 = colortox
+  [
+    rt 90
+    set energy energy - (energy * 0.1)
+  ]
+  [pcolor] of patch-right-and-ahead 90 1 = colornor
+  [
+    lt 90
+    set energy energy - (energy * 0.05)
+  ]
+  [pcolor] of patch-left-and-ahead 90 1 = colornor
+  [
+    rt 90
+    set energy energy - (energy * 0.05)
+  ]
+  [pcolor] of patch-ahead 1 = colortox
+  [
+    rt 90
+    set energy energy - (energy * 0.1)
+  ]
+  [pcolor] of patch-ahead 1 = colornor
+  [
+    rt 90
+    set energy energy - (energy * 0.05)
+  ]
+  [pcolor] of patch-ahead 1 = coloralim
+  [
+    fd 1
+    set energy energy + ealim
+    set pcolor neutral
+  ]
+  [pcolor] of patch-right-and-ahead 90 1 = coloralim
+  [
+    rt 90
+  ]
+  [pcolor] of patch-left-and-ahead 90 1 = coloralim
+  [
+    lt 90
+  ]
+  [
+    ifelse random 101 > 15 [fd 1][rt 90]
+  ])
+  set energy energy - 1
+  set label energy
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-647
-448
+703
+504
 -1
 -1
-13.0
+23.1
 1
 10
 1
@@ -108,10 +220,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--16
-16
--16
-16
+-10
+10
+-10
+10
 0
 0
 1
@@ -144,7 +256,7 @@ plixotox
 plixotox
 0
 15
-15.0
+4.0
 1
 1
 %
@@ -159,7 +271,7 @@ palim
 palim
 0
 20
-6.0
+13.0
 1
 1
 %
@@ -174,7 +286,7 @@ plixonor
 plixonor
 0
 15
-11.0
+8.0
 1
 1
 %
@@ -197,7 +309,7 @@ SWITCH
 85
 invertcolors
 invertcolors
-0
+1
 1
 -1000
 
@@ -210,7 +322,7 @@ ndepositos
 ndepositos
 0
 10
-5.0
+9.0
 1
 1
 NIL
@@ -225,7 +337,7 @@ elixotox
 elixotox
 0
 100
-50.0
+10.0
 1
 1
 NIL
@@ -240,7 +352,7 @@ elixonor
 elixonor
 0
 100
-50.0
+5.0
 1
 1
 NIL
@@ -255,7 +367,7 @@ ealim
 ealim
 0
 100
-50.0
+10.0
 1
 1
 NIL
@@ -310,7 +422,7 @@ ncomiloes
 ncomiloes
 0
 100
-41.0
+5.0
 1
 1
 NIL
@@ -325,7 +437,7 @@ nlimpadores
 nlimpadores
 0
 100
-37.0
+5.0
 1
 1
 NIL
@@ -345,6 +457,38 @@ nenergy
 1
 NIL
 HORIZONTAL
+
+SLIDER
+739
+31
+911
+64
+limresi
+limresi
+0
+100
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+BUTTON
+100
+15
+163
+48
+go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
