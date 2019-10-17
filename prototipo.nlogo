@@ -95,6 +95,7 @@ to setup-turtles
 end
 
 to go
+  if not any? turtles [stop]
   ask limpadores [go-limpadores]
   ask comiloes [go-comiloes]
   tick
