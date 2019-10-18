@@ -7,14 +7,11 @@ limpadores-own[trans]
 to setup
   clear-all
   reset-ticks
-
   ifelse invertcolors = true
   [invertit]
   [normalcolor]
-
   setup-patches
   setup-turtles
-
   ask turtles
   [
     let choice random 101
@@ -50,29 +47,14 @@ end
 to setup-patches
   ask patches with [pcolor = neutral]
   [
-    if random 101 < plixonor
-    [
-      set pcolor colornor
-    ]
-    if random 101 < plixotox
-    [
-      set pcolor colortox
-    ]
-    if random 100 <= palim
-    [
-      set pcolor coloralim
-    ]
-
+    if random 101 < plixonor [set pcolor colornor]
+    if random 101 < plixotox [set pcolor colortox]
+    if random 100 <= palim[set pcolor coloralim]
   ]
-
   while [counter < ndepositos] [
-    ask n-of 1 patches  with [pcolor = neutral]
-    [
-      set pcolor colordep
-    ]
+    ask n-of 1 patches  with [pcolor = neutral] [set pcolor colordep]
     set counter (1 + counter)
   ]
-
 end
 
 to setup-turtles
@@ -125,13 +107,8 @@ to go-limpadores
       [set energy energy + (ealim / 2)]
       set pcolor neutral
     ]
-    [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim
-    [
-      rt 90
-    ]
-    [
-      ifelse random 101 > 15 [fd 1][rt 90]
-    ])
+    [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
+    [ifelse random 101 > 15 [fd 1][rt 90]])
   ]
   [
     (ifelse [pcolor] of patch-ahead 1 = colordep
@@ -140,13 +117,8 @@ to go-limpadores
       set energy 10 * trans
       set trans 0
     ]
-    [pcolor] of patch-right-and-ahead 90 1 = colordep
-    [
-      rt 90
-    ]
-    [
-      ifelse random 101 > 15 [fd 1][rt 90]
-    ])
+    [pcolor] of patch-right-and-ahead 90 1 = colordep [rt 90]
+    [ifelse random 101 > 15 [fd 1][rt 90]])
   ])
   set energy energy - 1
 end
@@ -189,19 +161,10 @@ to go-comiloes
     set energy energy + ealim
     set pcolor neutral
   ]
-  [pcolor] of patch-right-and-ahead 90 1 = coloralim
-  [
-    rt 90
-  ]
-  [pcolor] of patch-left-and-ahead 90 1 = coloralim
-  [
-    lt 90
-  ]
-  [
-    ifelse random 101 > 15 [fd 1][rt 90]
-  ])
+  [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
+  [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
+  [ifelse random 101 > 15 [fd 1][rt 90]])
   set energy energy - 1
-  set label energy
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
