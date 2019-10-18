@@ -1,26 +1,16 @@
 globals [counter colorground coloralim colortox colornor colordep colorcomi colorlimp neutral]
-breed[comiloes comilao]
-breed[limpadores limpador]
+breed [comiloes comilao]
+breed [limpadores limpador]
 turtles-own [energy]
-limpadores-own[trans]
+patches-own [dep]
+limpadores-own [trans]
 
 to setup
   clear-all
   reset-ticks
-  ifelse invertcolors = true
-  [invertit]
-  [normalcolor]
+  ifelse invertcolors = true [invertit] [normalcolor]
   setup-patches
   setup-turtles
-  ask turtles
-  [
-    let choice random 101
-    (ifelse choice <= 25 [facexy xcor min-pycor] ;up
-    choice > 25 and choice <= 50 [facexy xcor max-pycor];down
-    choice > 50 and choice <= 75 [facexy min-pxcor ycor];left
-    choice > 75 [facexy max-pxcor ycor])
-  ]
-
 end
 
 to normalcolor
@@ -47,18 +37,14 @@ end
 to setup-patches
   ask patches with [pcolor = neutral]
   [
-    if random 101 < plixonor [set pcolor colornor]
-    if random 101 < plixotox [set pcolor colortox]
-    if random 100 <= palim[set pcolor coloralim]
+    (ifelse random 101 < plixonor [set pcolor colornor]
+    random 101 < plixotox [set pcolor colortox]
+    random 101 < palim[set pcolor coloralim])
   ]
-  while [counter < ndepositos] [
-    ask n-of 1 patches  with [pcolor = neutral] [set pcolor colordep]
-    set counter (1 + counter)
-  ]
+  ask n-of ndepositos patches with [pcolor = neutral] [set pcolor colordep]
 end
 
 to setup-turtles
-
   create-comiloes ncomiloes
   [
     set shape "bug"
@@ -66,7 +52,6 @@ to setup-turtles
     setxy random-xcor random-ycor
     set energy nenergy
   ]
-
   create-limpadores nlimpadores
   [
     set shape "bug"
@@ -74,12 +59,21 @@ to setup-turtles
     setxy random-xcor random-ycor
     set energy nenergy
   ]
+  ask turtles
+  [
+    let rnd random 101
+    (ifelse rnd <= 25 [facexy xcor min-pycor]
+    rnd > 25 and rnd <= 50 [facexy xcor max-pycor]
+    rnd > 50 and rnd <= 75 [facexy min-pxcor ycor]
+    rnd > 75 [facexy max-pxcor ycor])
+  ]
 end
 
 to go
   if not any? turtles [stop]
   ask limpadores [go-limpadores]
   ask comiloes [go-comiloes]
+  ask turtles [set energy energy - 1]
   tick
 end
 
@@ -92,12 +86,14 @@ to go-limpadores
       fd 1
       set trans trans + 2
       set pcolor neutral
+      ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor colortox]
     ]
     [pcolor] of patch-ahead 1 = colornor
     [
       fd 1
       set trans trans + 1
       set pcolor neutral
+      ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor colornor]
     ]
     [pcolor] of patch-ahead 1 = coloralim
     [
@@ -106,21 +102,22 @@ to go-limpadores
       [set energy energy + ealim]
       [set energy energy + (ealim / 2)]
       set pcolor neutral
+      ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor coloralim]
     ]
     [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
-    [ifelse random 101 > 15 [fd 1][rt 90]])
+    [ifelse random 101 > 5 [fd 1][rt 90]])
   ]
   [
     (ifelse [pcolor] of patch-ahead 1 = colordep
     [
       fd 1
+      set dep dep + trans
       set energy 10 * trans
       set trans 0
     ]
     [pcolor] of patch-right-and-ahead 90 1 = colordep [rt 90]
-    [ifelse random 101 > 15 [fd 1][rt 90]])
+    [ifelse random 101 > 5 [fd 1][rt 90]])
   ])
-  set energy energy - 1
 end
 
 to go-comiloes
@@ -160,11 +157,11 @@ to go-comiloes
     fd 1
     set energy energy + ealim
     set pcolor neutral
+    ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor coloralim]
   ]
   [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
   [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
-  [ifelse random 101 > 15 [fd 1][rt 90]])
-  set energy energy - 1
+  [ifelse random 101 > 5 [fd 1][rt 90]])
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -218,9 +215,9 @@ SLIDER
 162
 plixotox
 plixotox
-0
-15
-4.0
+5
+20
+20.0
 1
 1
 %
@@ -234,8 +231,8 @@ SLIDER
 palim
 palim
 0
-20
-13.0
+15
+15.0
 1
 1
 %
@@ -248,9 +245,9 @@ SLIDER
 216
 plixonor
 plixonor
-0
-15
-8.0
+5
+20
+20.0
 1
 1
 %
@@ -287,36 +284,6 @@ ndepositos
 0
 10
 9.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-113
-129
-205
-162
-elixotox
-elixotox
-0
-100
-10.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-112
-183
-204
-216
-elixonor
-elixonor
-0
-100
-5.0
 1
 1
 NIL
@@ -386,7 +353,7 @@ ncomiloes
 ncomiloes
 0
 100
-5.0
+21.0
 1
 1
 NIL
@@ -401,7 +368,7 @@ nlimpadores
 nlimpadores
 0
 100
-5.0
+20.0
 1
 1
 NIL
@@ -414,8 +381,8 @@ SLIDER
 461
 nenergy
 nenergy
-0
-100
+1
+50
 50.0
 1
 1
