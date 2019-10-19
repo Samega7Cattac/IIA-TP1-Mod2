@@ -192,9 +192,9 @@ ticks
 30.0
 
 BUTTON
-6
+25
 10
-79
+98
 43
 setup
 setup
@@ -209,25 +209,25 @@ NIL
 1
 
 SLIDER
-4
-129
-110
-162
+6
+240
+112
+273
 plixotox
 plixotox
 5
 20
-20.0
+8.0
 1
 1
 %
 HORIZONTAL
 
 SLIDER
-1
-235
-107
-268
+3
+126
+109
+159
 palim
 palim
 0
@@ -247,27 +247,27 @@ plixonor
 plixonor
 5
 20
-20.0
+11.0
 1
 1
 %
 HORIZONTAL
 
 TEXTBOX
-81
-221
-138
-239
+83
+112
+140
+130
 alimento\n
 12
 0.0
 1
 
 SWITCH
-0
-52
-124
-85
+39
+53
+163
+86
 invertcolors
 invertcolors
 1
@@ -290,10 +290,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-110
-235
-202
-268
+112
+126
+204
+159
 ealim
 ealim
 0
@@ -305,10 +305,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-80
-110
-146
-128
+82
+221
+148
+239
 lixo toxico
 12
 0.0
@@ -345,10 +345,10 @@ lixo normal
 1
 
 SLIDER
-6
-349
-178
-382
+12
+393
+184
+426
 ncomiloes
 ncomiloes
 0
@@ -360,10 +360,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-9
-388
-181
-421
+12
+436
+184
+469
 nlimpadores
 nlimpadores
 0
@@ -375,10 +375,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-9
-428
-181
-461
+12
+476
+184
+509
 nenergy
 nenergy
 1
@@ -390,10 +390,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-739
-31
-911
-64
+11
+340
+183
+373
 limresi
 limresi
 0
@@ -405,10 +405,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-100
-15
-163
-48
+120
+10
+183
+43
 go
 go
 T
