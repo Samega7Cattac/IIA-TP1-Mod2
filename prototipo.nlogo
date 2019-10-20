@@ -105,7 +105,7 @@ to go-limpadores
       ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor coloralim]
     ]
     [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
-    [ifelse random 101 > 5 [fd 1][rt 90]])
+    [ifelse random 101 > pturn [fd 1][rt 90]])
   ]
   [
     (ifelse [pcolor] of patch-ahead 1 = colordep
@@ -116,11 +116,12 @@ to go-limpadores
       set trans 0
     ]
     [pcolor] of patch-right-and-ahead 90 1 = colordep [rt 90]
-    [ifelse random 101 > 5 [fd 1][rt 90]])
+    [ifelse random 101 > pturn [fd 1][rt 90]])
   ])
 end
 
 to go-comiloes
+  if (any? comiloes-at 1 0 or any? comiloes-at 0 1 or any? comiloes-at -1 0) and random 101 < pbreed [hatch-comiloes 1]
   (ifelse energy <= 0 [die]
   [pcolor] of patch-right-and-ahead 90 1 = colortox
   [
@@ -161,7 +162,8 @@ to go-comiloes
   ]
   [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
   [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
-  [ifelse random 101 > 5 [fd 1][rt 90]])
+  [ifelse random 101 > pturn [fd 1][rt 90]])
+  set label count comiloes
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -192,9 +194,9 @@ ticks
 30.0
 
 BUTTON
-6
+25
 10
-79
+98
 43
 setup
 setup
@@ -209,25 +211,25 @@ NIL
 1
 
 SLIDER
-4
-129
-110
-162
+6
+240
+112
+273
 plixotox
 plixotox
-5
+1
 20
-20.0
+1.0
 1
 1
 %
 HORIZONTAL
 
 SLIDER
-1
-235
-107
-268
+3
+126
+109
+159
 palim
 palim
 0
@@ -245,29 +247,29 @@ SLIDER
 216
 plixonor
 plixonor
-5
+1
 20
-20.0
+1.0
 1
 1
 %
 HORIZONTAL
 
 TEXTBOX
-81
-221
-138
-239
+83
+112
+140
+130
 alimento\n
 12
 0.0
 1
 
 SWITCH
-0
-52
-124
-85
+39
+53
+163
+86
 invertcolors
 invertcolors
 1
@@ -290,25 +292,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-110
-235
-202
-268
+112
+126
+204
+159
 ealim
 ealim
 0
 100
-10.0
+11.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-80
-110
-146
-128
+82
+221
+148
+239
 lixo toxico
 12
 0.0
@@ -345,40 +347,40 @@ lixo normal
 1
 
 SLIDER
-6
-349
-178
-382
+12
+393
+184
+426
 ncomiloes
 ncomiloes
 0
 100
-21.0
+9.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-9
-388
-181
-421
+12
+436
+184
+469
 nlimpadores
 nlimpadores
 0
 100
-20.0
+0.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-9
-428
-181
-461
+12
+476
+184
+509
 nenergy
 nenergy
 1
@@ -390,10 +392,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-739
-31
-911
-64
+11
+340
+183
+373
 limresi
 limresi
 0
@@ -405,10 +407,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-100
-15
-163
-48
+120
+10
+183
+43
 go
 go
 T
@@ -420,6 +422,36 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+747
+42
+919
+75
+pturn
+pturn
+0
+50
+15.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+761
+119
+933
+152
+pbreed
+pbreed
+0
+50
+10.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
