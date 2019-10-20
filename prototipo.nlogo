@@ -217,7 +217,7 @@ plixotox
 plixotox
 5
 20
-8.0
+6.0
 1
 1
 %
@@ -247,7 +247,7 @@ plixonor
 plixonor
 5
 20
-10.0
+7.0
 1
 1
 %
@@ -296,9 +296,9 @@ SLIDER
 186
 ealim
 ealim
-0
-100
-21.0
+1
+50
+38.0
 1
 1
 NIL
@@ -492,7 +492,7 @@ INPUTBOX
 224
 375
 nenergy
-0.0
+120.0
 1
 0
 Number
@@ -525,7 +525,7 @@ INPUTBOX
 82
 374
 limresi
-0.0
+10.0
 1
 0
 Number
@@ -536,7 +536,7 @@ INPUTBOX
 249
 460
 ncomiloes
-0.0
+20.0
 1
 0
 Number
@@ -547,7 +547,7 @@ INPUTBOX
 121
 458
 nlimpadores
-0.0
+20.0
 1
 0
 Number
