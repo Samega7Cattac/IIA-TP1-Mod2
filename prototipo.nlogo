@@ -165,13 +165,13 @@ to go-comiloes
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-231
+240
 10
-724
-504
+703
+474
 -1
 -1
-23.1
+11.1
 1
 10
 1
@@ -181,10 +181,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--10
-10
--10
-10
+-20
+20
+-20
+20
 0
 0
 1
@@ -217,7 +217,7 @@ plixotox
 plixotox
 5
 20
-15.0
+8.0
 1
 1
 %
@@ -247,17 +247,17 @@ plixonor
 plixonor
 5
 20
-14.0
+10.0
 1
 1
 %
 HORIZONTAL
 
 TEXTBOX
-86
-108
-143
-126
+90
+98
+147
+116
 alimento\n
 12
 0.0
@@ -283,7 +283,7 @@ ndepositos
 ndepositos
 0
 10
-9.0
+10.0
 1
 1
 NIL
@@ -298,7 +298,7 @@ ealim
 ealim
 0
 100
-11.0
+21.0
 1
 1
 NIL
@@ -315,20 +315,20 @@ TEXTBOX
 1
 
 TEXTBOX
-9
-93
-114
+5
 111
+110
+129
 % de existencia\n
 12
 0.0
 1
 
 TEXTBOX
-124
-93
-179
-111
+150
+112
+205
+130
 energia
 12
 0.0
@@ -398,7 +398,7 @@ limresi
 limresi
 0
 100
-10.0
+32.0
 1
 1
 NIL
@@ -440,7 +440,7 @@ pturn
 pturn
 0
 50
-15.0
+12.0
 1
 1
 NIL
@@ -505,7 +505,7 @@ pbreed
 pbreed
 0
 50
-15.0
+39.0
 1
 1
 NIL
@@ -530,7 +530,7 @@ pgenlixo
 pgenlixo
 0
 50
-5.0
+9.0
 1
 1
 NIL
