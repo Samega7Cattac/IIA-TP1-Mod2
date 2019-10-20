@@ -164,19 +164,18 @@ to go-comiloes
     [ifelse random 101 < pturn [rt 90][fd 1]])
   if random 101 < pgenlixo [
     (ifelse random 101 < pgenlixotox
-      [ask patch-at 0 -1 [set pcolor colortox]]
-      [ask patch-at 0 -1 [set pcolor colornor]]
-    )]
+      [ask patch-at 0 -1 [set pcolor colortox]] [ask patch-at 0 -1 [set pcolor colornor]]
+  )]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
 242
 10
-692
-461
+703
+472
 -1
 -1
-10.8
+90.6
 1
 10
 1
@@ -186,10 +185,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--20
-20
--20
-20
+-2
+2
+-2
+2
 0
 0
 1
@@ -442,10 +441,10 @@ energia inicial
 1
 
 SLIDER
-0
-414
-103
-447
+1
+412
+104
+445
 pbreed
 pbreed
 0
@@ -458,19 +457,19 @@ HORIZONTAL
 
 TEXTBOX
 0
-398
-150
-416
+397
+101
+415
 % de reproducao
 12
 0.0
 1
 
 SLIDER
-0
-460
-103
-493
+113
+409
+216
+442
 pgenlixo
 pgenlixo
 0
@@ -482,10 +481,10 @@ pgenlixo
 HORIZONTAL
 
 TEXTBOX
-2
-446
-152
-503
+115
+395
+265
+452
 % comiloes gerar lixo
 12
 0.0
@@ -541,7 +540,7 @@ INPUTBOX
 222
 398
 ncomiloes
-20.0
+0.0
 1
 0
 Number
@@ -558,20 +557,20 @@ nlimpadores
 Number
 
 TEXTBOX
-116
-462
-266
-480
+44
+442
+194
+460
 % de esse lixo ser toxico
 12
 0.0
 1
 
 SLIDER
-108
-477
-232
-510
+36
+457
+160
+490
 pgenlixotox
 pgenlixotox
 0
