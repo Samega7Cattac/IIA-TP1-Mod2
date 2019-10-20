@@ -38,8 +38,8 @@ to setup-patches
   ask patches with [pcolor = neutral]
   [
     (ifelse random 101 < plixonor [set pcolor colornor]
-    random 101 < plixotox [set pcolor colortox]
-    random 101 < palim[set pcolor coloralim])
+      random 101 < plixotox [set pcolor colortox]
+      random 101 < palim[set pcolor coloralim])
   ]
   ask n-of ndepositos patches with [pcolor = neutral] [set pcolor colordep]
 end
@@ -63,9 +63,9 @@ to setup-turtles
   [
     let rnd random 101
     (ifelse rnd <= 25 [facexy xcor min-pycor]
-    rnd > 25 and rnd <= 50 [facexy xcor max-pycor]
-    rnd > 50 and rnd <= 75 [facexy min-pxcor ycor]
-    rnd > 75 [facexy max-pxcor ycor])
+      rnd > 25 and rnd <= 50 [facexy xcor max-pycor]
+      rnd > 50 and rnd <= 75 [facexy min-pxcor ycor]
+      rnd > 75 [facexy max-pxcor ycor])
   ]
 end
 
@@ -78,43 +78,44 @@ to go
 end
 
 to go-limpadores
+  if (any? limpadores-at 1 0 or any? limpadores-at 0 1 or any? limpadores-at -1 0) and random 101 < pbreed [hatch-limpadores 1]
   (ifelse energy <= 0 [die]
-  limresi > trans
-  [
-    (ifelse [pcolor] of patch-ahead 1 = colortox
+    limresi > trans
     [
-      fd 1
-      set trans trans + 2
-      set pcolor neutral
+      (ifelse [pcolor] of patch-ahead 1 = colortox
+        [
+          fd 1
+          set trans trans + 2
+          set pcolor neutral
+        ]
+        [pcolor] of patch-ahead 1 = colornor
+        [
+          fd 1
+          set trans trans + 1
+          set pcolor neutral
+        ]
+        [pcolor] of patch-ahead 1 = coloralim
+        [
+          fd 1
+          ifelse limresi / 2 > trans
+          [set energy energy + ealim]
+          [set energy energy + (ealim / 2)]
+          set pcolor neutral
+        ]
+        [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
+        [ifelse random 101 < pturn [rt 90][fd 1]])
     ]
-    [pcolor] of patch-ahead 1 = colornor
     [
-      fd 1
-      set trans trans + 1
-      set pcolor neutral
-    ]
-    [pcolor] of patch-ahead 1 = coloralim
-    [
-      fd 1
-      ifelse limresi / 2 > trans
-      [set energy energy + ealim]
-      [set energy energy + (ealim / 2)]
-      set pcolor neutral
-    ]
-    [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
-    [ifelse random 101 < pturn [rt 90][fd 1]])
-  ]
-  [
-    (ifelse [pcolor] of patch-ahead 1 = colordep
-    [
-      fd 1
-      set dep dep + trans
-      set energy 10 * trans
-      ask n-of trans patches with [pcolor = neutral] [set pcolor coloralim]
-      set trans 0
-    ]
-    [pcolor] of patch-right-and-ahead 90 1 = colordep [rt 90]
-    [ifelse random 101 < pturn [rt 90][fd 1]])
+      (ifelse [pcolor] of patch-ahead 1 = colordep
+        [
+          fd 1
+          set dep dep + trans
+          set energy 10 * trans
+          ask n-of trans patches with [pcolor = neutral] [set pcolor coloralim]
+          set trans 0
+        ]
+        [pcolor] of patch-right-and-ahead 90 1 = colordep [rt 90]
+        [ifelse random 101 < pturn [rt 90][fd 1]])
   ])
   set label trans
 end
@@ -122,56 +123,60 @@ end
 to go-comiloes
   if (any? comiloes-at 1 0 or any? comiloes-at 0 1 or any? comiloes-at -1 0) and random 101 < pbreed [hatch-comiloes 1]
   (ifelse energy <= 0 [die]
-  [pcolor] of patch-right-and-ahead 90 1 = colortox
-  [
-    lt 90
-    set energy energy - (energy * 0.1)
-  ]
-  [pcolor] of patch-left-and-ahead 90 1 = colortox
-  [
-    rt 90
-    set energy energy - (energy * 0.1)
-  ]
-  [pcolor] of patch-right-and-ahead 90 1 = colornor
-  [
-    lt 90
-    set energy energy - (energy * 0.05)
-  ]
-  [pcolor] of patch-left-and-ahead 90 1 = colornor
-  [
-    rt 90
-    set energy energy - (energy * 0.05)
-  ]
-  [pcolor] of patch-ahead 1 = colortox
-  [
-    ifelse random 101 > 50 [lt 90] [rt 90]
-    set energy energy - (energy * 0.1)
-  ]
-  [pcolor] of patch-ahead 1 = colornor
-  [
-    ifelse random 101 > 50 [lt 90] [rt 90]
-    set energy energy - (energy * 0.05)
-  ]
-  [pcolor] of patch-ahead 1 = coloralim
-  [
-    fd 1
-    set energy energy + ealim
-    set pcolor neutral
-  ]
-  [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
-  [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
-  [ifelse random 101 < pturn [rt 90][fd 1]])
-  if random 101 < pgenlixo [ask patch-at 0 -1 [set pcolor colornor]]
+    [pcolor] of patch-right-and-ahead 90 1 = colortox
+    [
+      lt 90
+      set energy energy - (energy * 0.1)
+    ]
+    [pcolor] of patch-left-and-ahead 90 1 = colortox
+    [
+      rt 90
+      set energy energy - (energy * 0.1)
+    ]
+    [pcolor] of patch-right-and-ahead 90 1 = colornor
+    [
+      lt 90
+      set energy energy - (energy * 0.05)
+    ]
+    [pcolor] of patch-left-and-ahead 90 1 = colornor
+    [
+      rt 90
+      set energy energy - (energy * 0.05)
+    ]
+    [pcolor] of patch-ahead 1 = colortox
+    [
+      ifelse random 101 > 50 [lt 90] [rt 90]
+      set energy energy - (energy * 0.1)
+    ]
+    [pcolor] of patch-ahead 1 = colornor
+    [
+      ifelse random 101 > 50 [lt 90] [rt 90]
+      set energy energy - (energy * 0.05)
+    ]
+    [pcolor] of patch-ahead 1 = coloralim
+    [
+      fd 1
+      set energy energy + ealim
+      set pcolor neutral
+    ]
+    [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
+    [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
+    [ifelse random 101 < pturn [rt 90][fd 1]])
+  if random 101 < pgenlixo [
+    (ifelse random 101 < pgenlixotox
+      [ask patch-at 0 -1 [set pcolor colortox]]
+      [ask patch-at 0 -1 [set pcolor colornor]]
+    )]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-264
+242
 10
-727
-474
+692
+461
 -1
 -1
-11.1
+10.8
 1
 10
 1
@@ -192,9 +197,9 @@ ticks
 30.0
 
 BUTTON
-25
+0
 10
-98
+73
 43
 setup
 setup
@@ -209,15 +214,15 @@ NIL
 1
 
 SLIDER
-116
-210
-222
-243
+113
+167
+219
+200
 plixotox
 plixotox
 5
 20
-6.0
+8.0
 1
 1
 %
@@ -225,9 +230,9 @@ HORIZONTAL
 
 SLIDER
 3
-153
+122
 109
-186
+155
 palim
 palim
 0
@@ -239,15 +244,15 @@ palim
 HORIZONTAL
 
 SLIDER
-3
-210
-108
-243
+0
+167
+105
+200
 plixonor
 plixonor
 5
 20
-7.0
+16.0
 1
 1
 %
@@ -255,19 +260,19 @@ HORIZONTAL
 
 TEXTBOX
 90
-125
+98
 147
-143
+116
 alimento\n
 12
 0.0
 1
 
 SWITCH
-0
-91
-124
-124
+6
+47
+130
+80
 invertcolors
 invertcolors
 1
@@ -275,10 +280,10 @@ invertcolors
 -1000
 
 SLIDER
-6
-265
-108
-298
+0
+213
+102
+246
 ndepositos
 ndepositos
 0
@@ -291,24 +296,24 @@ HORIZONTAL
 
 SLIDER
 112
-153
+122
 221
-186
+155
 ealim
 ealim
 1
 50
-38.0
+48.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-117
-192
-216
-210
+118
+154
+217
+172
 % lixo toxico
 12
 0.0
@@ -316,9 +321,9 @@ TEXTBOX
 
 TEXTBOX
 5
-138
+107
 110
-156
+125
 % de existencia\n
 12
 0.0
@@ -326,28 +331,28 @@ TEXTBOX
 
 TEXTBOX
 150
-139
+108
 205
-157
+126
 energia
 12
 0.0
 1
 
 TEXTBOX
-9
-192
-101
-210
+10
+154
+102
+172
 % lixo normal
 12
 0.0
 1
 
 BUTTON
-120
+80
 10
-183
+143
 43
 go
 go
@@ -362,25 +367,25 @@ NIL
 1
 
 TEXTBOX
-27
-246
-109
-264
+13
+199
+95
+217
 n depositos
 12
 0.0
 1
 
 SLIDER
-115
-265
-224
-298
+109
+213
+218
+246
 pturn
 pturn
 0
 50
-12.0
+21.0
 1
 1
 NIL
@@ -388,9 +393,9 @@ HORIZONTAL
 
 TEXTBOX
 126
-244
+199
 197
-262
+217
 % de virar
 12
 0.0
@@ -398,9 +403,9 @@ TEXTBOX
 
 TEXTBOX
 5
-301
+248
 120
-319
+266
 limite de residuos
 12
 0.0
@@ -408,89 +413,89 @@ limite de residuos
 
 TEXTBOX
 139
-382
+322
 266
-400
-numero de  comiloes
+340
+n de  comiloes
 12
 0.0
 1
 
 TEXTBOX
 0
-382
+322
 135
-400
-numero de limpadores
+340
+n de limpadores
 12
 0.0
 1
 
 TEXTBOX
 131
-297
+244
 221
-315
+262
 energia inicial
 12
 0.0
 1
 
 SLIDER
-2
-483
-135
-516
+0
+414
+103
+447
 pbreed
 pbreed
 0
-50
-1.0
+90
+47.0
 1
 1
-NIL
+%
 HORIZONTAL
 
 TEXTBOX
 0
-462
+398
 150
-480
+416
 % de reproducao
 12
 0.0
 1
 
 SLIDER
-139
-481
-268
-514
+0
+460
+103
+493
 pgenlixo
 pgenlixo
 0
-50
-0.0
+40
+40.0
 1
 1
-NIL
+%
 HORIZONTAL
 
 TEXTBOX
-136
-463
-286
-481
+2
+446
+152
+503
 % comiloes gerar lixo
 12
 0.0
 1
 
 INPUTBOX
-118
-315
+109
+262
 224
-375
+322
 nenergy
 120.0
 1
@@ -498,10 +503,10 @@ nenergy
 Number
 
 SWITCH
-3
-55
-111
-88
+143
+73
+240
+106
 limittick
 limittick
 1
@@ -509,21 +514,21 @@ limittick
 -1000
 
 INPUTBOX
-128
-60
-236
-120
+142
+10
+240
+70
 ticklimit
-0.0
+1000.0
 1
 0
 Number
 
 INPUTBOX
 2
-314
-82
-374
+261
+102
+321
 limresi
 10.0
 1
@@ -531,10 +536,10 @@ limresi
 Number
 
 INPUTBOX
-162
-400
-249
-460
+110
+338
+222
+398
 ncomiloes
 20.0
 1
@@ -543,14 +548,39 @@ Number
 
 INPUTBOX
 0
+338
+99
 398
-121
-458
 nlimpadores
 20.0
 1
 0
 Number
+
+TEXTBOX
+116
+462
+266
+480
+% de esse lixo ser toxico
+12
+0.0
+1
+
+SLIDER
+108
+477
+232
+510
+pgenlixotox
+pgenlixotox
+0
+10
+10.0
+1
+1
+%
+HORIZONTAL
 
 @#$#@#$#@
 @#$#@#$#@
