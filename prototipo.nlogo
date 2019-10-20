@@ -86,14 +86,12 @@ to go-limpadores
       fd 1
       set trans trans + 2
       set pcolor neutral
-      ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor colortox]
     ]
     [pcolor] of patch-ahead 1 = colornor
     [
       fd 1
       set trans trans + 1
       set pcolor neutral
-      ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor colornor]
     ]
     [pcolor] of patch-ahead 1 = coloralim
     [
@@ -102,10 +100,9 @@ to go-limpadores
       [set energy energy + ealim]
       [set energy energy + (ealim / 2)]
       set pcolor neutral
-      ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor coloralim]
     ]
     [pcolor] of patch-right-and-ahead 90 1 = colortox or [pcolor] of patch-right-and-ahead 90 1 = colornor or [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
-    [ifelse random 101 > pturn [fd 1][rt 90]])
+    [ifelse random 101 < pturn [rt 90][fd 1]])
   ]
   [
     (ifelse [pcolor] of patch-ahead 1 = colordep
@@ -113,11 +110,13 @@ to go-limpadores
       fd 1
       set dep dep + trans
       set energy 10 * trans
+      ask n-of trans patches with [pcolor = neutral] [set pcolor coloralim]
       set trans 0
     ]
     [pcolor] of patch-right-and-ahead 90 1 = colordep [rt 90]
-    [ifelse random 101 > pturn [fd 1][rt 90]])
+    [ifelse random 101 < pturn [rt 90][fd 1]])
   ])
+  set label trans
 end
 
 to go-comiloes
@@ -158,11 +157,11 @@ to go-comiloes
     fd 1
     set energy energy + ealim
     set pcolor neutral
-    ask patches with [pxcor = random-pxcor and pycor = random-pycor] [set pcolor coloralim]
   ]
   [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
   [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
-  [ifelse random 101 > pturn [fd 1][rt 90]])
+  [ifelse random 101 < pturn [rt 90][fd 1]])
+  if random 101 < pgenlixo [ask patch-at 0 -1 [set pcolor colornor]]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -216,9 +215,9 @@ SLIDER
 216
 plixotox
 plixotox
-1
+5
 20
-8.0
+15.0
 1
 1
 %
@@ -246,19 +245,19 @@ SLIDER
 216
 plixonor
 plixonor
-1
+5
 20
-11.0
+14.0
 1
 1
 %
 HORIZONTAL
 
 TEXTBOX
-83
-112
-140
-130
+86
+108
+143
+126
 alimento\n
 12
 0.0
@@ -309,7 +308,7 @@ TEXTBOX
 117
 165
 216
-197
+183
 % lixo toxico
 12
 0.0
@@ -328,7 +327,7 @@ TEXTBOX
 TEXTBOX
 124
 93
-274
+179
 111
 energia
 12
@@ -339,7 +338,7 @@ TEXTBOX
 9
 165
 101
-197
+183
 % lixo normal
 12
 0.0
@@ -354,22 +353,22 @@ ncomiloes
 ncomiloes
 0
 100
-9.0
+14.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-23
-414
-195
-447
+22
+417
+194
+450
 nlimpadores
 nlimpadores
 0
 100
-21.0
+10.0
 1
 1
 NIL
@@ -426,7 +425,7 @@ TEXTBOX
 21
 227
 103
-259
+245
 n depositos
 12
 0.0
@@ -450,7 +449,7 @@ HORIZONTAL
 TEXTBOX
 120
 225
-270
+191
 243
 % de virar
 12
@@ -458,30 +457,30 @@ TEXTBOX
 1
 
 TEXTBOX
-56
-287
-171
-305
+55
+285
+170
+303
 limite de residuos
 12
 0.0
 1
 
 TEXTBOX
-47
-344
-193
-392
+46
+342
+192
+360
 numero de  comiloes
 12
 0.0
 1
 
 TEXTBOX
-39
-399
-186
-431
+38
+397
+185
+415
 numero de limpadores
 12
 0.0
@@ -489,50 +488,65 @@ numero de limpadores
 
 TEXTBOX
 67
-454
+452
 157
-486
+470
 energia inicial
 12
 0.0
 1
 
+SLIDER
+746
+31
+918
+64
+pbreed
+pbreed
+0
+50
+15.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+776
+12
+926
+30
+% de reproducao
+12
+0.0
+1
+
+SLIDER
+747
+97
+919
+130
+pgenlixo
+pgenlixo
+0
+50
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+762
+78
+912
+96
+% comiloes gerar lixo
+12
+0.0
+1
+
 @#$#@#$#@
-## WHAT IS IT?
-
-(a general understanding of what the model is trying to show or explain)
-
-## HOW IT WORKS
-
-(what rules the agents use to create the overall behavior of the model)
-
-## HOW TO USE IT
-
-(how to use the model, including a description of each of the items in the Interface tab)
-
-## THINGS TO NOTICE
-
-(suggested things for the user to notice while running the model)
-
-## THINGS TO TRY
-
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
-
-## EXTENDING THE MODEL
-
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
-
-## NETLOGO FEATURES
-
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-
-## RELATED MODELS
-
-(models in the NetLogo Models Library and elsewhere which are of related interest)
-
-## CREDITS AND REFERENCES
-
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
 @#$#@#$#@
 default
 true
