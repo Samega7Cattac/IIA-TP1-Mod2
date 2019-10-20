@@ -163,13 +163,12 @@ to go-comiloes
   [pcolor] of patch-right-and-ahead 90 1 = coloralim [rt 90]
   [pcolor] of patch-left-and-ahead 90 1 = coloralim [lt 90]
   [ifelse random 101 > pturn [fd 1][rt 90]])
-  set label count comiloes
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+231
 10
-703
+724
 504
 -1
 -1
@@ -211,15 +210,15 @@ NIL
 1
 
 SLIDER
-6
-240
-112
-273
+116
+183
+222
+216
 plixotox
 plixotox
 1
 20
-1.0
+8.0
 1
 1
 %
@@ -249,7 +248,7 @@ plixonor
 plixonor
 1
 20
-1.0
+11.0
 1
 1
 %
@@ -277,10 +276,10 @@ invertcolors
 -1000
 
 SLIDER
-52
-284
-157
-317
+6
+246
+108
+279
 ndepositos
 ndepositos
 0
@@ -294,7 +293,7 @@ HORIZONTAL
 SLIDER
 112
 126
-204
+221
 159
 ealim
 ealim
@@ -307,11 +306,11 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-82
-221
-148
-239
-lixo toxico
+117
+165
+216
+197
+% lixo toxico
 12
 0.0
 1
@@ -337,20 +336,20 @@ energia
 1
 
 TEXTBOX
-74
-167
-144
-185
-lixo normal
+9
+165
+101
+197
+% lixo normal
 12
 0.0
 1
 
 SLIDER
-12
+24
+360
+196
 393
-184
-426
 ncomiloes
 ncomiloes
 0
@@ -362,25 +361,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-12
-436
-184
-469
+23
+414
+195
+447
 nlimpadores
 nlimpadores
 0
 100
-0.0
+21.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-12
-476
-184
-509
+21
+469
+193
+502
 nenergy
 nenergy
 1
@@ -392,10 +391,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-11
-340
-183
-373
+23
+305
+195
+338
 limresi
 limresi
 0
@@ -423,11 +422,21 @@ NIL
 NIL
 1
 
+TEXTBOX
+21
+227
+103
+259
+n depositos
+12
+0.0
+1
+
 SLIDER
-747
-42
-919
-75
+115
+246
+224
+279
 pturn
 pturn
 0
@@ -438,20 +447,55 @@ pturn
 NIL
 HORIZONTAL
 
-SLIDER
-761
-119
-933
-152
-pbreed
-pbreed
-0
-50
-10.0
+TEXTBOX
+120
+225
+270
+243
+% de virar
+12
+0.0
 1
+
+TEXTBOX
+56
+287
+171
+305
+limite de residuos
+12
+0.0
 1
-NIL
-HORIZONTAL
+
+TEXTBOX
+47
+344
+193
+392
+numero de  comiloes
+12
+0.0
+1
+
+TEXTBOX
+39
+399
+186
+431
+numero de limpadores
+12
+0.0
+1
+
+TEXTBOX
+67
+454
+157
+486
+energia inicial
+12
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
